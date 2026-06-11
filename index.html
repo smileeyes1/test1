@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المنصة التعليمية الشاملة للمعلم الفلسطيني — إصدار عملي قابل للنشر</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.js"></script>
+  <script>
+    window.pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.js';
+  </script>
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="brand">
+      <h1>المنصة التعليمية الشاملة للمعلم الفلسطيني</h1>
+      <p>واجهة عملية حقيقية لرفع أي كتاب PDF، قراءة صفحاته، وتوليد تحاضير وأوراق عمل واختبارات وقوائم رصد وتقارير، مع طباعة منظمة وربط GitHub حقيقي إلى المستودع <strong>test1</strong>.</p>
+    </div>
+    <div class="top-actions">
+      <button id="publishBtn" class="btn primary">🚀 إنشاء/تحديث test1 تلقائيًا</button>
+      <button id="printBtn" class="btn">🖨️ طباعة</button>
+      <button id="saveBtn" class="btn">💾 حفظ محلي</button>
+      <button id="loadBtn" class="btn">↩️ استعادة</button>
+      <button id="exportBtn" class="btn">⬇️ تصدير البيانات</button>
+      <label class="btn">⬆️ استيراد البيانات<input id="importInput" type="file" accept="application/json" hidden /></label>
+    </div>
+  </header>
+
+  <section class="hero no-print">
+    <div class="hero-card success">
+      <strong>طريقة تشغيل عملية:</strong>
+      أدخل بيانات GitHub مرة واحدة، ثم اضغط زر النشر: سيحاول المشروع إنشاء أو تحديث المستودع <strong>test1</strong> تلقائيًا ورفع الملفات الخمسة إليه، ثم تفعيل GitHub Pages. بعد ذلك يصبح الموقع قابلاً للاستخدام عبر الرابط العام المتوقَّع.
+    </div>
+    <div class="hero-card warning">
+      <strong>تنبيه ضروري:</strong>
+      النشر التلقائي الحقيقي يحتاج <strong>اسم مستخدم GitHub</strong> و<strong>Personal Access Token</strong> من حسابك. بدون ذلك لا يستطيع أي HTML في المتصفح الكتابة داخل GitHub نيابة عنك.
+    </div>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar no-print">
+      <div class="panel">
+        <h2>١) بيانات المعلم والمدرسة</h2>
+        <label>اسم المعلم<input id="teacherName" type="text" placeholder="اكتب اسم المعلم" /></label>
+        <label>اسم المدرسة<input id="schoolName" type="text" placeholder="اكتب اسم المدرسة" /></label>
+        <label>المادة<input id="subjectName" type="text" placeholder="مثال: الرياضيات" /></label>
+        <label>الصف<input id="gradeName" type="text" placeholder="مثال: الصف الثاني الأساسي" /></label>
+        <label>الشعبة<input id="sectionName" type="text" placeholder="مثال: أ" /></label>
+        <label>المدير<input id="principalName" type="text" placeholder="اسم المدير" /></label>
+        <label>المشرف<input id="supervisorName" type="text" placeholder="اسم المشرف" /></label>
+        <label>الفصل الدراسي<input id="termName" type="text" placeholder="الأول / الثاني" /></label>
+        <label>العام الدراسي<input id="yearName" type="text" placeholder="٢٠٢٦ / ٢٠٢٧" /></label>
+      </div>
+
+      <div class="panel">
+        <h2>٢) رفع الكتاب المدرسي</h2>
+        <label class="upload-box">
+          <span>اختر ملف PDF للكتاب المدرسي</span>
+          <input id="bookInput" type="file" accept="application/pdf" />
+        </label>
+        <div class="pdf-controls">
+          <button id="prevPageBtn" class="btn small">الصفحة السابقة</button>
+          <span id="pageIndicator">لا يوجد ملف</span>
+          <button id="nextPageBtn" class="btn small">الصفحة التالية</button>
+        </div>
+        <canvas id="pdfCanvas" aria-label="معاينة صفحة من الكتاب"></canvas>
+        <button id="extractTextBtn" class="btn">📄 استخراج نص الصفحة الحالية</button>
+        <label>نص الصفحة / المقتطف المعتمد
+          <textarea id="pageText" placeholder="سيظهر هنا النص المستخرج، ويمكنك أيضًا لصق نص يدويًا من الكتاب أو الدليل."></textarea>
+        </label>
+      </div>
+
+      <div class="panel">
+        <h2>٣) ربط GitHub الحقيقي</h2>
+        <label>اسم مستخدم GitHub<input id="githubUser" type="text" placeholder="مثال: your-username" /></label>
+        <label>Personal Access Token<input id="githubToken" type="password" placeholder="ألصق الـ Token هنا" /></label>
+        <label>اسم المستودع المستهدف<input id="repoName" type="text" value="test1" /></label>
+        <div class="note small-text">المستودع مضبوط افتراضيًا على <strong>test1</strong>. الزر سيحاول إنشاء المستودع إن لم يكن موجودًا، ثم يرفع الملفات، ثم يحاول تفعيل GitHub Pages.</div>
+        <div id="publishStatus" class="status">جاهز للربط. أدخل اسم المستخدم وToken ثم اضغط زر النشر.</div>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="panel no-print">
+        <h2>٤) مولد الحزمة التعليمية والإدارية</h2>
+        <div class="grid two">
+          <label>عنوان الدرس / الموضوع<input id="lessonTitle" type="text" placeholder="مثال: المقارنة بين عددين ضمن ٩٩" /></label>
+          <label>الوحدة / المرجع<input id="unitTitle" type="text" placeholder="مثال: الوحدة الأولى / ص ٤" /></label>
+          <label>الزمن<input id="lessonTime" type="text" placeholder="مثال: ٤٠ دقيقة" /></label>
+          <label>نوع التحضير<select id="prepMode"><option>تفصيلي</option><option>يومي مختصر</option><option>إشرافي موسع</option></select></label>
+          <label>مستوى الطلبة<select id="studentsLevel"><option>متنوع</option><option>بحاجة إلى دعم</option><option>متقدم</option></select></label>
+          <label>نوع المخرجات<select id="outputMode"><option value="all">كل الحزمة</option><option value="lessonPlan">تحضير فقط</option><option value="worksheet">ورقة عمل فقط</option><option value="test">اختبار فقط</option><option value="checklist">قوائم رصد فقط</option><option value="admin">تقارير وإدارة فقط</option><option value="yearly">خطة شهرية / فصلية فقط</option></select></label>
+        </div>
+        <div class="action-row">
+          <button id="generateBtn" class="btn primary">⚙️ توليد المطلوب</button>
+          <button id="generateAllBtn" class="btn accent">📦 توليد الحزمة الكاملة</button>
+          <button id="supervisorBtn" class="btn warn">✅ إدراج متطلبات الإدارة والإشراف</button>
+          <button id="clearBtn" class="btn danger">🧹 تفريغ المخرجات</button>
+        </div>
+      </div>
+
+      <article class="output-shell" id="printArea">
+        <div class="doc-head">
+          <div>
+            <div class="org">دولة فلسطين — وزارة التربية والتعليم</div>
+            <div id="docHeader" class="doc-title">الحزمة التعليمية والإدارية الشاملة</div>
+            <div id="metaHeader" class="doc-meta">جاهزة للتعديل والطباعة والنشر</div>
+          </div>
+          <div class="head-badges">
+            <span id="badgeTeacher">المعلم: —</span>
+            <span id="badgeSchool">المدرسة: —</span>
+            <span id="badgeSubject">المادة: —</span>
+            <span id="badgeGrade">الصف: —</span>
+          </div>
+        </div>
+        <div id="output" class="output" contenteditable="true">
+          <section class="generated-block">
+            <h2>منصة جاهزة للعمل الفوري</h2>
+            <p>ابدأ بإدخال بيانات المعلم والمدرسة، ثم ارفع الكتاب المدرسي، ثم استخرج نص الصفحة، ثم اضغط <strong>توليد الحزمة الكاملة</strong>. يمكنك التعديل داخل هذه المساحة مباشرة قبل الطباعة أو النشر.</p>
+          </section>
+        </div>
+      </article>
+
+      <div class="panel no-print">
+        <h2>٥) بنية التطوير والدعم</h2>
+        <ul>
+          <li><strong>index.html</strong>: الواجهة الرئيسية.</li>
+          <li><strong>styles.css</strong>: تنسيق الشاشة والطباعة بمعيار منظم.</li>
+          <li><strong>generators.js</strong>: قوالب التوليد التعليمية والإدارية.</li>
+          <li><strong>app.js</strong>: منطق PDF، الحفظ، التصدير، والنشر إلى GitHub.</li>
+          <li><strong>README.md</strong>: دليل التشغيل المختصر والدقيق.</li>
+        </ul>
+        <p class="small-text">المشروع منظم بحيث يسهل تطويره لاحقًا بإضافة مولدات جديدة دون كسر البنية الحالية.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="generators.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
