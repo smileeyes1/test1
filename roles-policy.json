@@ -1,0 +1,49 @@
+{
+  "mode": "final-rbac",
+  "rule": "اعتمد ← أصلح ← أكمل",
+  "roles": [
+    {
+      "name": "viewer",
+      "allowedCommands": [
+        "health_check",
+        "validate_policy",
+        "summarize_runtime_status",
+        "check_eschool_readiness",
+        "ai_continuity_plan",
+        "list_jobs",
+        "get_audit_tail"
+      ]
+    },
+    {
+      "name": "operator",
+      "allowedCommands": [
+        "health_check",
+        "validate_policy",
+        "summarize_runtime_status",
+        "check_eschool_readiness",
+        "ai_continuity_plan",
+        "create_job",
+        "list_jobs",
+        "process_next_job",
+        "retry_failed_job",
+        "get_audit_tail"
+      ]
+    },
+    {
+      "name": "auditor",
+      "allowedCommands": [
+        "health_check",
+        "validate_policy",
+        "summarize_runtime_status",
+        "list_jobs",
+        "get_audit_tail"
+      ]
+    },
+    {
+      "name": "admin",
+      "allowedCommands": [
+        "*"
+      ]
+    }
+  ]
+}

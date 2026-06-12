@@ -1,0 +1,54 @@
+{
+  "mode": "final-enterprise-project",
+  "rule": "اعتمد ← أصلح ← أكمل",
+  "allowedCommands": [
+    {
+      "name": "health_check",
+      "description": "فحص الخدمة"
+    },
+    {
+      "name": "validate_policy",
+      "description": "فحص السياسة والأدوار"
+    },
+    {
+      "name": "summarize_runtime_status",
+      "description": "تلخيص الحالة"
+    },
+    {
+      "name": "check_eschool_readiness",
+      "description": "فحص جاهزية eSchool"
+    },
+    {
+      "name": "ai_continuity_plan",
+      "description": "تلخيص خطة الاستمرارية"
+    },
+    {
+      "name": "create_job",
+      "description": "إضافة مهمة إلى الطابور"
+    },
+    {
+      "name": "list_jobs",
+      "description": "عرض الطابور"
+    },
+    {
+      "name": "process_next_job",
+      "description": "معالجة المهمة التالية"
+    },
+    {
+      "name": "retry_failed_job",
+      "description": "إعادة محاولة مهمة فاشلة"
+    },
+    {
+      "name": "get_audit_tail",
+      "description": "سحب آخر سجل التدقيق"
+    },
+    {
+      "name": "emergency_stop",
+      "description": "تفعيل الإيقاف الطارئ"
+    },
+    {
+      "name": "clear_emergency_stop",
+      "description": "رفع الإيقاف الطارئ"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المنصة التعليمية المؤسسية التنفيذية النهائية</title>
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="manifest" href="manifest.json" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.js"></script>
+  <script>
+    window.pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.js';
+  </script>
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="brand">
+      <h1>المنصة التعليمية المؤسسية التنفيذية النهائية</h1>
+      <p>نسخة نهائية مجمعة: واجهة احترافية، مساعد مدمج، استمرارية ذكاء متعددة المسارات، جسر خلفي آمن، وصيغة جاهزة للتوسع والتكامل المؤسسي.</p>
+    </div>
+    <div class="actions">
+      <button id="toggleAgentBtn" class="btn primary">🧠 المساعد المدمج</button>
+      <button id="printBtn" class="btn">🖨️ طباعة</button>
+      <button id="saveBtn" class="btn">💾 حفظ</button>
+      <button id="loadBtn" class="btn">↩️ استعادة</button>
+      <button id="exportBtn" class="btn">⬇️ تصدير</button>
+      <label class="btn">⬆️ استيراد<input id="importInput" type="file" accept="application/json" hidden /></label>
+      <button id="downloadHtmlBtn" class="btn">📦 HTML</button>
+    </div>
+  </header>
+
+  <section class="hero no-print">
+    <div class="card ok">
+      <strong>القاعدة التشغيلية:</strong>
+      <ul>
+        <li><strong>اعتمد:</strong> اعتمد المرجع المتحقق والسياسات الرسمية فقط.</li>
+        <li><strong>أصلح:</strong> أصلح الصياغة والتنظيم ومسارات الفشل والصلاحيات.</li>
+        <li><strong>أكمل:</strong> أكمل التوليد والتحسين والأتمتة والتشغيل بطريقة آمنة ومدروسة.</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <strong>الحدود المهنية الصادقة:</strong>
+      الواجهة تنفذ أعمالًا فعلية داخل التطبيق نفسه، أما الأعمال الأوسع والحساسة فتُمرر إلى الجسر الخلفي الآمن عبر سياسة أوامر وصلاحيات، وليس عبر أوامر نظام حرة.
+    </div>
+  </section>
+
+  <main>
+    <aside class="no-print">
+      <section class="panel">
+        <h2>الهوية المؤسسية</h2>
+        <div class="grid">
+          <label>اسم المعلم<input id="teacherName"></label>
+          <label>اسم المدرسة<input id="schoolName"></label>
+          <label>المديرية<input id="directorateName"></label>
+          <label>المادة<input id="subjectName"></label>
+          <label>الصف<input id="gradeName"></label>
+          <label>الشعبة<input id="sectionName"></label>
+          <label>الفصل<input id="termName"></label>
+          <label>العام<input id="yearName"></label>
+          <label>التاريخ<input id="docDate"></label>
+          <label>العنوان / الموضوع<input id="lessonTitle"></label>
+        </div>
+        <label>الوحدة / المرجع<input id="unitTitle"></label>
+        <label>الزمن<input id="lessonTime"></label>
+        <label>ملاحظات إضافية<textarea id="extraNotes"></textarea></label>
+      </section>
+
+      <section class="panel">
+        <h2>المرجع والمقتطف</h2>
+        <label class="upload">اختر PDF<input id="bookInput" type="file" accept="application/pdf"></label>
+        <div class="row">
+          <button id="prevPageBtn" class="btn">السابق</button>
+          <span id="pageIndicator">لا يوجد ملف</span>
+          <button id="nextPageBtn" class="btn">التالي</button>
+        </div>
+        <canvas id="pdfCanvas"></canvas>
+        <div class="row">
+          <button id="extractTextBtn" class="btn">📄 استخراج النص</button>
+          <button id="copyPageTextBtn" class="btn">📋 نسخ النص</button>
+        </div>
+        <label>المقتطف المعتمد<textarea id="pageText"></textarea></label>
+      </section>
+
+      <section class="panel">
+        <h2>إعدادات الذكاء</h2>
+        <div class="grid">
+          <label>النمط<select id="aiMode"><option value="local">محلي قاعدي</option><option value="openai">OpenAI-Compatible</option><option value="gemini">Gemini-Compatible</option><option value="anthropic">Anthropic-Compatible</option><option value="custom">REST مخصص</option></select></label>
+          <label>النموذج<input id="aiModel"></label>
+          <label>واجهة API<input id="apiEndpoint"></label>
+          <label>مفتاح API<input id="apiKey" type="password"></label>
+        </div>
+        <div class="row">
+          <button id="aiGenerateBtn" class="btn primary">🤖 توليد ذكي</button>
+          <button id="aiImproveBtn" class="btn">✨ تحسين</button>
+          <button id="aiAutoPackBtn" class="btn">🧠 أتمتة</button>
+        </div>
+        <div id="aiStatus" class="status">جاهز. الوضع الحالي: الذكاء المحلي القاعدي.</div>
+      </section>
+
+      <section class="panel">
+        <h2>نوع المخرج</h2>
+        <label>المخرج<select id="outputMode"><option value="all">الحقيبة الكاملة</option><option value="cover">غلاف</option><option value="lessonPlan">تحضير</option><option value="worksheet">ورقة</option><option value="test">اختبار</option><option value="analysis">تحليل</option><option value="report">تقرير</option><option value="portfolio">ملف إنجاز</option></select></label>
+        <div class="row">
+          <button id="generateBtn" class="btn primary">⚙️ توليد المطلوب</button>
+          <button id="generateAllBtn" class="btn">📦 الحقيبة</button>
+          <button id="clearBtn" class="btn danger">🧹 تفريغ</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>اختبار الجسر الخلفي الآمن</h2>
+        <div class="grid">
+          <label>رابط الجسر<input id="bridgeUrl" value="http://localhost:3090"></label>
+          <label>رمز الوصول<input id="bridgeToken" type="password"></label>
+          <label>الدور<select id="bridgeRole"><option>viewer</option><option>operator</option><option>auditor</option><option>admin</option></select></label>
+          <label>الأمر<select id="bridgeCommand"><option>health_check</option><option>validate_policy</option><option>summarize_runtime_status</option><option>check_eschool_readiness</option><option>ai_continuity_plan</option><option>create_job</option><option>list_jobs</option><option>process_next_job</option><option>retry_failed_job</option><option>get_audit_tail</option><option>emergency_stop</option><option>clear_emergency_stop</option></select></label>
+        </div>
+        <label>حمولة الجسر JSON<textarea id="bridgePayload">{"requestId":"demo-001","kind":"sync_roster","baseUrl":"","primary":"Microsoft/Azure","secondary":"Google","third":"Local","fallback":"Local Rule Engine","reason":"manual review","jobId":""}</textarea></label>
+        <div class="row">
+          <button id="bridgeRunBtn" class="btn">تنفيذ أمر الجسر</button>
+          <button id="bridgeHealthBtn" class="btn">فحص الصحة</button>
+          <button id="bridgeAuditBtn" class="btn">آخر السجل</button>
+        </div>
+        <div id="bridgeStatus" class="status">جاهز. هذه الواجهة تختبر الجسر الخلفي الآمن.</div>
+      </section>
+    </aside>
+
+    <section>
+      <section class="panel no-print">
+        <h2>الأزرار الذكية</h2>
+        <div class="smart-grid">
+          <button id="smartLessonBtn" class="smart-btn">تحضير مباشر</button>
+          <button id="smartWorksheetBtn" class="smart-btn">ورقة مباشرة</button>
+          <button id="smartTestBtn" class="smart-btn">اختبار مباشر</button>
+          <button id="smartReportBtn" class="smart-btn">تقرير مباشر</button>
+          <button id="smartAnalysisBtn" class="smart-btn">تحليل مباشر</button>
+          <button id="smartPackBtn" class="smart-btn">الحقيبة كاملة</button>
+        </div>
+      </section>
+
+      <article class="shell" id="printArea">
+        <div class="head">
+          <div>
+            <div id="directorateLineMain" class="meta">—</div>
+            <h2 id="docHeader">الحقيبة التعليمية والإدارية</h2>
+            <div id="metaHeader" class="meta">جاهزة للتعديل والطباعة</div>
+          </div>
+          <div class="badges">
+            <span id="badgeTeacher">المعلم: —</span>
+            <span id="badgeSchool">المدرسة: —</span>
+            <span id="badgeSubject">المادة: —</span>
+            <span id="badgeGrade">الصف: —</span>
+          </div>
+        </div>
+        <div id="output" class="out" contenteditable="true">
+          <section class="block">
+            <h2>مساحة العمل</h2>
+            <p>هذا هو المشروع النهائي المجمع: واجهة احترافية، ذكاء محلي وخارجي، مساعد مدمج، وجسر خلفي آمن محكوم بسياسات وأدوار وطابور مهام.</p>
+          </section>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <section id="agentWindow" class="agent-window no-print hidden">
+    <div id="agentHeader" class="agent-header">
+      <div>
+        <strong>المساعد التنفيذي المدمج</strong>
+        <div class="tiny">وضع الأوامر الذكي داخل التطبيق</div>
+      </div>
+      <div class="row small-gap">
+        <button id="minimizeAgentBtn" class="btn">—</button>
+        <button id="closeAgentBtn" class="btn">✕</button>
+      </div>
+    </div>
+    <div class="agent-body">
+      <div class="status" id="agentStatus">جاهز. اكتب أمرًا مباشرًا أو اختر من الأوامر السريعة.</div>
+      <div class="command-box">
+        <input id="agentCommandInput" type="text" placeholder="مثال: /generate lesson أو /improve أو /save أو /status أو /bridge health" />
+        <button id="runAgentCommandBtn" class="btn primary">تنفيذ</button>
+      </div>
+      <div class="quick-commands">
+        <button class="cmd-btn" data-cmd="/generate lesson">/generate lesson</button>
+        <button class="cmd-btn" data-cmd="/generate worksheet">/generate worksheet</button>
+        <button class="cmd-btn" data-cmd="/generate test">/generate test</button>
+        <button class="cmd-btn" data-cmd="/improve">/improve</button>
+        <button class="cmd-btn" data-cmd="/autopack">/autopack</button>
+        <button class="cmd-btn" data-cmd="/save">/save</button>
+        <button class="cmd-btn" data-cmd="/load">/load</button>
+        <button class="cmd-btn" data-cmd="/export">/export</button>
+        <button class="cmd-btn" data-cmd="/print">/print</button>
+        <button class="cmd-btn" data-cmd="/bridge health">/bridge health</button>
+        <button class="cmd-btn" data-cmd="/bridge audit">/bridge audit</button>
+        <button class="cmd-btn" data-cmd="/help">/help</button>
+      </div>
+      <div class="agent-log" id="agentLog"></div>
+    </div>
+  </section>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/templates.js"></script>
+  <script src="assets/js/pdf.js"></script>
+  <script src="assets/js/ai.js"></script>
+  <script src="assets/js/agent.js"></script>
+  <script src="assets/js/frontend-bridge.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

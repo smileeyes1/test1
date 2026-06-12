@@ -1,0 +1,15 @@
+{
+  "name": "pal-final-enterprise-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "المشروع النهائي المجمع: جسر خلفي آمن + RBAC + Queue + Emergency Stop + Audit Tail + Idempotency.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node scripts/check-integrity.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

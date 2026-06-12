@@ -1,0 +1,10 @@
+{
+  "name": "المنصة التعليمية المؤسسية التنفيذية النهائية",
+  "short_name": "المنصة النهائية",
+  "display": "standalone",
+  "start_url": "./index.html",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0b5cab",
+  "lang": "ar",
+  "dir": "rtl"
+}
